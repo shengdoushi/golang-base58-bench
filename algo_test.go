@@ -8,6 +8,7 @@ import (
 
 	itchynyAlgo "github.com/itchyny/base58-go"
 	jbenetAlgo "github.com/jbenet/go-base58"
+	m0t0k1ch1Algo "github.com/m0t0k1ch1/base58"
 	mrtronAlgo "github.com/mr-tron/base58/base58"
 	shengdoushiAlgo "github.com/shengdoushi/base58"
 	tv42Algo "github.com/tv42/base58"
@@ -64,6 +65,20 @@ func TestJbenet(t *testing.T) {
 		decoded := jbenetAlgo.DecodeAlphabet(testcase.encoded, alphabet)
 		if !bytes.Equal(decoded, testcase.decoded) {
 			t.Errorf("Jbenet decode(%s) should be %v, but %v", testcase.encoded, testcase.decoded, decoded)
+		}
+	}
+}
+
+func TestM0t0k1ch1(t *testing.T) {
+	alphabet := m0t0k1ch1Algo.NewBitcoinBase58()
+	for _, testcase := range testcases {
+		encoded, _ := alphabet.EncodeToString(testcase.decoded)
+		if encoded != testcase.encoded {
+			t.Errorf("Mrtron encode(%v) should be %s, but %s", testcase.decoded, testcase.encoded, encoded)
+		}
+		decoded, _ := alphabet.DecodeString(testcase.encoded)
+		if !bytes.Equal(decoded, testcase.decoded) {
+			t.Errorf("Mrtron decode(%s) should be %v, but %v", testcase.encoded, testcase.decoded, decoded)
 		}
 	}
 }

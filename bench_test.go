@@ -7,6 +7,7 @@ import (
 
 	itchynyAlgo "github.com/itchyny/base58-go"
 	jbenetAlgo "github.com/jbenet/go-base58"
+	m0t0k1ch1Algo "github.com/m0t0k1ch1/base58"
 	mrtronAlgo "github.com/mr-tron/base58/base58"
 	shengdoushiAlgo "github.com/shengdoushi/base58"
 	tv42Algo "github.com/tv42/base58"
@@ -56,6 +57,15 @@ func BenchmarkEncodeJbenet(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		for _, testcase := range testcases {
 			jbenetAlgo.EncodeAlphabet(testcase.decoded, alphabet)
+		}
+	}
+}
+
+func BenchmarkEncodeM0t0k1ch1(b *testing.B) {
+	alphabet := m0t0k1ch1Algo.NewBitcoinBase58()
+	for i := 0; i < b.N; i++ {
+		for _, testcase := range testcases {
+			alphabet.EncodeToString(testcase.decoded)
 		}
 	}
 }
@@ -118,6 +128,15 @@ func BenchmarkDecodeJbenet(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		for _, testcase := range testcases {
 			jbenetAlgo.DecodeAlphabet(testcase.encoded, alphabet)
+		}
+	}
+}
+
+func BenchmarkDecodeM0t0k1ch1(b *testing.B) {
+	alphabet := m0t0k1ch1Algo.NewBitcoinBase58()
+	for i := 0; i < b.N; i++ {
+		for _, testcase := range testcases {
+			alphabet.DecodeString(testcase.encoded)
 		}
 	}
 }
